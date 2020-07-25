@@ -70,39 +70,35 @@
             document.getElementById('trans-area').style.display="block";
             document.getElementById('amount-entry').style.display='block';    
         })
-        // Deposit handlar
+        // Deposit btn event  handlar
         document.getElementById('depositBtn').addEventListener('click',function(){
 
-            const depositeAmount=document.getElementById('deposite-Amount').value;
-            const depositeNumber=parseFloat(depositeAmount);
+           const getDepositNumber=getInputNumber("deposite-Amount");
 
-            updateSpanText('depositCurrentNumber',depositeNumber);
-            updateSpanText('balanceAmount',depositeNumber);
+            updateSpanText('depositCurrentNumber',getDepositNumber);
+            updateSpanText('balanceAmount',getDepositNumber);
 
-            document.getElementById('deposite-Amount').value="";
-
-           
+            document.getElementById('deposite-Amount').value="";       
         })
         
-         // Withdraw handlar
+         // Withdraw btn event handlar
 
         document.getElementById('WithdrawBtn').addEventListener('click',function(){
-            const withdrawAmount=document.getElementById('withdrawAmount').value;
-            const withdrawAmountNumber=parseFloat(withdrawAmount);
+            
+            const getWithdrawNumber=getInputNumber('withdrawAmount');
 
-            const withdrawCurrentAmount=document.getElementById('withdrawCurrentAmount').innerText;
-            const withdrawCurrentAmountNumber=parseFloat(withdrawCurrentAmount);
-            const totalWithdraw= withdrawAmountNumber + withdrawCurrentAmountNumber;
-            document.getElementById('withdrawCurrentAmount').innerText=totalWithdraw;
+            updateSpanText('withdrawCurrentAmount',getWithdrawNumber);
+            updateSpanText('balanceAmount',-1 * getWithdrawNumber)
             
             document.getElementById('withdrawAmount').value="";
 
-           const balanceAmountWithdraw= document.getElementById('balanceAmount').innerText;
-           const balanceAmountWithdrawNumber=parseFloat(balanceAmountWithdraw);
-           const currentBalanceAmountNumber2= balanceAmountWithdrawNumber - withdrawAmountNumber;
-            document.getElementById('balanceAmount').innerText=currentBalanceAmountNumber2;
-
         })
+
+        function getInputNumber(id){
+            const amount=document.getElementById(id).value;
+            const amountNumber=parseFloat(amount);
+            return amountNumber;
+        }
         
         function updateSpanText(id,depositeNumber){
             const current=document.getElementById(id).innerText;
